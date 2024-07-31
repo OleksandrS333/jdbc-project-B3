@@ -1,0 +1,52 @@
+SELECT * FROM EMPLOYEES;
+
+-- Display all information from employees who is making highest salary in company ?
+SELECT MAX(SALARY) FROM EMPLOYEES; -- 24O00
+
+-- Here we manually/hard coded way put the salary in the SQL query
+SELECT * FROM EMPLOYEES
+WHERE SALARY = 24000;
+
+-- Here, we dynamically put the highest salary in SQL query
+SELECT * FROM EMPLOYEES
+WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES);
+
+
+-- Display the 2nd highest salary
+SELECT SALARY FROM EMPLOYEES
+ORDER BY SALARY DESC;
+
+SELECT MAX(SALARY) FROM EMPLOYEES; -- 24000
+
+SELECT SALARY FROm EMPLOYEES
+WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEES)
+ORDER BY SALARY DESC;
+
+
+SELECT MAX(SALARY) FROm EMPLOYEES
+WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEES); -- 17000
+
+
+-- Display all info from employees for the 2nd highest salary
+
+SELECT * FROM EMPLOYEES
+WHERE SALARY = 17000;
+
+
+SELECT * FROM EMPLOYEES
+WHERE SALARY = (SELECT MAX(SALARY) FROm EMPLOYEES
+                WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEES));
+
+
+
+-- Display all the employees who are making above the average salary
+SELECT SALARY FROM EMPLOYEES;
+SELECT ROUND (AVG(SALARY)) FROM EMPLOYEES; --6461.83
+
+-- Hardcoded
+SELECT * FROM EMPLOYEES
+WHERE SALARY > 6462;
+
+-- Dynamic
+SELECT * FROM EMPLOYEES
+WHERE SALARY > (SELECT ROUND (AVG(SALARY)) FROM EMPLOYEES);
